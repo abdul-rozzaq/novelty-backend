@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'api',
+    'shop_api',
     'accounts',
     'project',
 ]
@@ -44,7 +45,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'project.middlewares.ShopAuthenticationMiddleware',
+    'shop_api.middlewares.ShopAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

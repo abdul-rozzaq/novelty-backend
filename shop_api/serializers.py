@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from project.models import Shop, Token
+from .models import Shop, Token
 
 
 class ShopSerializer(serializers.ModelSerializer):
