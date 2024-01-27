@@ -57,7 +57,7 @@ class Shop(models.Model):
 
 class Token(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
-    user = models.ForeignKey(Shop, related_name='tokens', on_delete=models.CASCADE)
+    shop = models.ForeignKey(Shop, related_name='tokens', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

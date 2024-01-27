@@ -1,7 +1,4 @@
-
-
 from rest_framework import serializers
-
 from project.models import Shop, Token
 
 
