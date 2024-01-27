@@ -11,24 +11,15 @@ import uuid
 
 
 fake = Faker()
+import random
 
-
-def create_shop():
-    return Shop(
-        id=uuid.uuid4(),
-        image=fake.image_url(),
-        name=fake.company(),
-        password=fake.password(),
-        description=fake.text(),
-    )
-
-# Create 15 shops
-for _ in range(15):
-    shop = create_shop()
-    shop.save()
-    print(f"Shop '{shop.name}' created.")
-
-print("15 shops created successfully.")
+for i in Shop.objects.all():
+    i.login = ''.join([str(random.randint(0, 9)) for x in range(10)])
+    
+    print()
+    
+    
+    i.save()
     
     
 # import sys

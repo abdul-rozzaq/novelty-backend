@@ -21,9 +21,7 @@ class User(models.Model):
     @staticmethod
     def authenticate(phone):
         try:
-            user = User.objects.get(phone=phone)
-
-            return user
+            return User.objects.get(phone=phone)
         except User.DoesNotExist:
             return None
 
