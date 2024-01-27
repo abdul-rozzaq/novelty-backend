@@ -10,7 +10,8 @@ class ShopSerializer(serializers.ModelSerializer):
         model = Shop
         fields = '__all__'
 
+
 class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Token
-        fields = ('key', 'user', 'created')
+        fields = ('key', 'shop', 'created')
