@@ -1,12 +1,40 @@
-from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
+from django.http import FileResponse
 from rest_framework import status
-from rest_framework.decorators import api_view, authentication_classes, permission_classes 
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
 from .serializers import ShopSerializer, TokenSerializer
-from .models import Shop, Token
+from .models import Shop, Token, Region
 from .auth import TokenAuthentication
+
+from accounts import auth, permissions
+
+from PIL import Image
+from io import BytesIO
+
+
+def get_image(request, shop_id, size):
+    
+    size = float(size) 
+    shop = Shop.objects.get(id=shop_id)
+    
+
+    original_image = Image.open(shop.image.path)
+    resized_image = original_image.resize((int(shop.image.width * float(size)), int(shop.image.height * float(size))))
+
+    buffer = BytesIO()
+    resized_image.save(buffer, format="png")
+    buffer.seek(0)
+
+    return FileResponse(buffer, as_attachment=False, filename=f'{shop.image.name.split(".")[0]}.png')
+
+
+@api_view(['GET'])
+@authentication_classes([auth.TokenAuthentication])
+@permission_classes([permissions.IsAuthenticated])
+def get_locations(request):
+    return Response([{'id': x.id, 'name': x.name, 'districts': [{'id': y.id, 'name': y.name} for y in x.districts.all()]} for x in Region.objects.all()])
+
 
 @api_view(['POST'])
 def shop_register(request):
@@ -40,8 +68,11 @@ def shop_login(request):
 
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
+# @authentication_classes([TokenAuthentication])
 def test(request):
-    
-    print(request.shop)
-    return Response(status=status.HTTP_200_OK)
+
+    shop: Shop = Shop.objects.get(id='7403bb4a-b9b7-4545-935e-0953341e6ec9')
+
+    serializer = ShopSerializer(shop, context={'request': request})
+
+    return Response(serializer.data, status=status.HTTP_200_OK)

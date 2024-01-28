@@ -1,10 +1,10 @@
-
 import uuid
 from django.db import models
 
+from shop_api.models import Shop
+
 
 class Genre(models.Model):
-    # image = models.ImageField(upload_to='genre-icons/')
     name = models.CharField(max_length=256)
 
     def __str__(self) -> str:
@@ -19,17 +19,17 @@ class CarouselItem(models.Model):
         return str(self.id)
 
 
-class Region(models.Model):
+class Book(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='book-images/')
     name = models.CharField(max_length=256)
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class District(models.Model):
-    region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, related_name='districts')
-    name = models.CharField(max_length=256)
+    description = models.TextField(blank=True)
+    price = models.IntegerField()
+    
+    author = models.CharField(max_length=256)
+    
+    genres = models.ManyToManyField(Genre)
 
     def __str__(self) -> str:
         return self.name

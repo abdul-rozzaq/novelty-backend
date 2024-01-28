@@ -1,27 +1,72 @@
 import os
+import django
+import random
+import time
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-import django
 django.setup()
-from project.models import Shop
 
-from faker import Faker
+from project.models import Book, Genre
 
-import uuid
+start_time = time.time()
 
 
-fake = Faker()
-import random
+    
+print("--- %s seconds ---" % round(time.time() - start_time, 2))
 
-for i in Shop.objects.all():
-    i.login = ''.join([str(random.randint(0, 9)) for x in range(10)])
+# for x in Book.objects.all():
     
-    print()
-    
-    
-    i.save()
-    
-    
+#     for y in range()
+
+# from faker import Faker
+
+# import uuid
+# import random
+
+# fake = Faker()
+
+
+# shop_ids = [
+#     "7403bb4a-b9b7-4545-935e-0953341e6ec9",
+#     "f8357597-0808-41b3-b123-71b607982532",
+#     "7da182ee-e93a-4218-b9bc-a69adc9de44c",
+#     "736d71c0-5457-4558-92ed-77c50b9810c0",
+# ]
+
+
+# for x in Book.objects.all():
+
+#     x.image = random.choice(names)
+
+#     x.save()
+
+
+# for i in range(100):
+
+#     name = fake.company()
+#     description = fake.text()
+#     image = fake.image_url()
+#     price = random.randint(10, 100) * 1000
+
+
+#     Book.objects.create(
+#         shop_id=random.choice(shop_ids),
+#         name=name,
+#         description=description,
+#         image=image,
+#         price=price,
+#     )
+
+
+# def create_shop():
+#     return Shop(
+#         id=uuid.uuid4(),
+#         image=fake.image_url(),
+#         name=fake.company(),
+#         password=fake.password(),
+#         description=fake.text(),
+#     )
+
 # import sys
 # sys.dont_write_bytecode = True
 
@@ -32,9 +77,7 @@ for i in Shop.objects.all():
 # django.setup()
 
 
-# from project.models import *
-
-
+# from shop_api.models import *
 
 
 # data = [
@@ -646,4 +689,3 @@ for i in Shop.objects.all():
 #         dname = district['name']
 
 #         District.objects.create(region=rg, name=dname)
-
