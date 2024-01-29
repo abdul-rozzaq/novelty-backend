@@ -2,7 +2,9 @@ from django.http import FileResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
-from rest_framework.viewsets import mixins, GenericViewSet
+from rest_framework.viewsets import mixins, GenericViewSet, ModelViewSet
+from rest_framework.parsers import MultiPartParser, FileUploadParser, JSONParser
+from rest_framework.views import APIView
 
 from project.models import Book
 from project.serializers import BookSerializer
@@ -17,12 +19,22 @@ from accounts import auth, permissions
 from PIL import Image
 from io import BytesIO
 
+#
+
 
 class BookCreateUpdateViewSet(GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+# class BookCreateUpdateViewSet(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsOwner]
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+    # parser_classes = [JSONParser]
+
+    # def post(self, request, *args, **kwargs):
+    #     print(request.data)
+    #     print(request.FILES)
+    #     print(request.POST)
+    #     return Response({'status': 200}, status=200)
 
 
 def get_image(request, shop_id, size):

@@ -23,7 +23,7 @@ def get_genres(request):
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_books(request):
 
     books = Book.objects.all()

@@ -6,6 +6,7 @@ class BookAdmin(admin.ModelAdmin):
     list_display = [
         x.name for x in Book._meta.fields if x.name not in ['description']]
     list_filter = ['shop', 'genres__name']
+    search_fields = ['name']
 
 
 admin.site.register(Genre)

@@ -1,8 +1,11 @@
+import base64
+
+from django.urls import reverse
+from django.core.files.base import ContentFile
 
 from rest_framework import serializers
 
 from project.models import Book
-from django.urls import reverse
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -33,3 +36,16 @@ class BookSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['shop'] = self.context['request'].shop
         return super().create(validated_data)
+
+    def validate_empty_values(self, data):
+
+        data = {**data}
+
+        if isinstance(data['image'], str):
+            name, imagestr = data['image'].split(';')
+
+            data['image'] = ContentFile(base64.b64decode(imagestr), name=name)
+
+        
+        print(data)
+        return super().validate_empty_values(data)
