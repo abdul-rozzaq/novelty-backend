@@ -17,14 +17,13 @@ def get_carousel_items(request):
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def get_genres(request):
     return Response([{'id': x.id, 'name': x.name} for x in Genre.objects.all()])
 
 
 @api_view(['GET'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_books(request):
 
     books = Book.objects.all()

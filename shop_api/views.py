@@ -2,10 +2,15 @@ from django.http import FileResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
+from rest_framework.viewsets import mixins, GenericViewSet
+
+from project.models import Book
+from project.serializers import BookSerializer
 
 from .serializers import ShopSerializer, TokenSerializer
 from .models import Shop, Token, Region
 from .auth import TokenAuthentication
+from .permissions import IsAuthenticated, IsOwner
 
 from accounts import auth, permissions
 
@@ -13,14 +18,21 @@ from PIL import Image
 from io import BytesIO
 
 
+class BookCreateUpdateViewSet(GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsOwner]
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
+
 def get_image(request, shop_id, size):
-    
-    size = float(size) 
+
+    size = float(size)
     shop = Shop.objects.get(id=shop_id)
-    
 
     original_image = Image.open(shop.image.path)
-    resized_image = original_image.resize((int(shop.image.width * float(size)), int(shop.image.height * float(size))))
+    resized_image = original_image.resize(
+        (int(shop.image.width * float(size)), int(shop.image.height * float(size))))
 
     buffer = BytesIO()
     resized_image.save(buffer, format="png")
@@ -59,8 +71,8 @@ def shop_login(request):
 
     if shop:
         token, created = Token.objects.get_or_create(shop=shop)
-        shop_serializer = ShopSerializer(shop)
-        token_serializer = TokenSerializer(token)
+        shop_serializer = ShopSerializer(shop, context={'request': request})
+        token_serializer = TokenSerializer(token, context={'request': request})
 
         return Response({'shop': shop_serializer.data, 'token': token_serializer.data})
     else:

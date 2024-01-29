@@ -10,5 +10,5 @@ from .views import (
 urlpatterns = [
     path('carousel-items/', get_carousel_items),
     path('genres/', get_genres),
-    path('book/', get_books),
+    path('get-books/', get_books),
 ]
