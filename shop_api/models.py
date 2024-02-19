@@ -5,7 +5,6 @@ import os
 import uuid
 
 
-
 class Region(models.Model):
     name = models.CharField(max_length=256)
 
@@ -40,7 +39,7 @@ class Shop(models.Model):
             return Shop.objects.get(login=login, password=password)
         except Shop.DoesNotExist:
             return None
-   
+
 
 class Token(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
