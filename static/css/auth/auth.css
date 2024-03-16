@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  height: 100vh;
+  --main-color: #fdbc2f;
+}
+
+.container {
+  background-color: white;
+  display: flex;
+  width: 1200px;
+  height: 650px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+}
+.container > div {
+  width: 50%;
+}
+.container .left {
+  background-color: var(--main-color);
+}
+.container .left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.container .right {
+  padding: 4rem;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+}
+.container .right .title {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.container .right form {
+  display: flex;
+  flex-direction: column;
+}
+.container .right form input, .container .right form button {
+  padding: 0.7rem;
+  outline: none;
+  margin-bottom: 0.7em;
+  font-size: 1rem;
+}
+.container .right form input::selection {
+  background-color: var(--main-color);
+  color: white;
+}
+.container .right form button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+}
+.container .right form .row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.container .right form input[type=checkbox] {
+  margin-block: 0.8rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.container .right .link {
+  margin-top: 0.5rem;
+}
+.container .right .link a {
+  color: var(--main-color);
+  text-decoration: none;
+}
+.container .right .pointer {
+  cursor: pointer;
+}
+.container .right ul {
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+/*# sourceMappingURL=auth.css.map */

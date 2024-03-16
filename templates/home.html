@@ -1,13 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="{% url 'login_page' %}">Login</a>
-    <a href="{% url 'register_page' %}">Register</a>
-    <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+{% extends 'base.html' %}{% load static %}
+
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block head %}
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="left">
+        
+
+    </div>
+    <div class="right">
+
+    </div>
+</div>
+
+{% endblock %}

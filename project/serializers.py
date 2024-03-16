@@ -28,7 +28,7 @@ class BookSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
 
-        data['shop'] = self.get_image(instance)
+        data['image'] = self.get_image(instance)
         data['genres'] = self.get_genres(instance)
 
         return data

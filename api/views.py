@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 
 from accounts.permissions import IsAuthenticated
 from accounts.auth import TokenAuthentication
-from project.models import Book, CarouselItem, Genre
+from project.models import Book, CarouselItem, Genre, Region
 from project.serializers import BookSerializer
 
 
@@ -23,11 +23,16 @@ def get_genres(request):
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_books(request):
-
     books = Book.objects.all()
-
     serializer = BookSerializer(books, many=True, context={'request': request})
-
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_locations(request):
+    return Response([{'id': x.id, 'name': x.name, 'districts': [{'id': y.id, 'name': y.name} for y in x.districts.all()]} for x in Region.objects.all()])
+

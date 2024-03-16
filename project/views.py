@@ -9,9 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sessions.middleware import SessionMiddleware
 from project.decorators import shop_check_decorator
 
-from shop_api.models import Shop
-
-from .models import Book
+from .models import Book, Shop
 
 
 def get_image(request, book_id, size):
@@ -39,23 +37,51 @@ def home_page(request):
 
 
 def login_page(request):
+    context = {'errors' : []}
+        
     if request.method == 'POST':
         login = request.POST.get('login')
         password = request.POST.get('password')
 
-        user = Shop.authenticate(login=login, password=password)
+        shop = Shop.authenticate(login=login, password=password)
 
-        if user is not None:
-            request.session['shop_id'] = str(user.id)
+        if shop is not None:
+            request.session['shop_id'] = str(shop.id)
             return redirect('home_page')
+        
         else:
-            return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
+            context['errors'].append('Parol xato yoki bunday do\'kon mavjud emas')
 
-    return render(request, 'login.html',)
+    return render(request, 'login.html', context)
 
 
 def register_page(request):
-    return render(request, 'register.html',)
+    context = {'errors' : []}
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        login = request.POST.get('login')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        
+        if  None not in [name, login, password1, password2] and not Shop.objects.filter(login=login).exists() and password1 == password2 and len(password1.strip()) >= 8:
+                
+            shop = Shop.objects.create(name=name, login=login, password=password1)
+            
+            request.session['shop_id'] = str(shop.id)
+            return redirect('home_page')
+        
+        if password1 != password2:
+            context['errors'].append('Parollar bir xil emas')
+                
+        if len(password1.strip()) < 8:
+            context['errors'].append('Parol 8 belgi uzunligida bo\'lishi kerak')
+        
+        if Shop.objects.filter(login=login).exists():
+            context['errors'].append(f'Login "{login}" allaqachon foydalanilgan')
+        
+    return render(request, 'register.html', context)
 
 
 def logout(request):
