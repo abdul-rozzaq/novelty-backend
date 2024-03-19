@@ -12,7 +12,7 @@ from project.serializers import BookSerializer
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_carousel_items(request):
-    return Response([x.image.url for x in CarouselItem.objects.all()])
+    return Response([request.build_absolute_uri(x.image.url) for x in CarouselItem.objects.all()])
 
 
 @api_view(['GET'])
