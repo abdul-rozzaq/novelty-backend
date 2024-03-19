@@ -1,0 +1,182 @@
+{% extends 'base.html' %}{% load static %}
+
+{% block title %}
+Kitoblar - Novelty
+{% endblock %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/modal.css' %}">
+<link rel="stylesheet" href="{% static 'css/books.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="navbar">
+    <div class="page-title">Kitoblar</div>
+    <div class="actions">
+        <div class="button modal-button" data-target-id="ADD-BOOK">Kitob qo'shish</div>
+    </div>
+</div>
+
+<div class="body">
+    <div class="table">
+        <div class="t-head">
+            <div class="t-data id">Id</div>
+            <div class="t-data name">Nomi</div>
+            <div class="t-data price">Narxi</div>
+            <div class="t-data count">Soni</div>
+            <div class="t-data author">Yozuvchi</div>
+            <div class="t-data genres">Janrlar</div>
+        </div>
+
+        <div class="t-body">
+            {% for book in books %}
+
+            <div class="t-row">
+                <div class="t-data id">{{ forloop.counter }}</div>
+                <a  href="{% url 'edit_book_page' book.pk %}" class="t-data name">{{ book.name }}</a>
+                <div class="t-data price">{{ book.price }} so'm</div>
+                <div class="t-data count">{{ forloop.counter }} ta</div>
+                <div class="t-data author">{{ book.author }}</div>
+                <div class="t-data genres">
+                    {% for gnr in book.genres.all %}
+                    <div class="genre">
+                        {{ gnr.name }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <div class="filter">
+        <div class="search">
+            <div class="title">
+                <span>Filter</span>
+                <a class="clear" href="{% url 'books_page' %}">
+                    <i class="fa-solid fa-xmark" style="color: black;"></i>
+                </a>
+            </div>
+            <form class="search-form">
+                <div class="field">
+                    <div class="label">Kitob nomi</div>
+                    <input type="text" placeholder="Tarixi Muhammadiy" name="book_title" list="book-titles" value="{{ request.GET.book_title }}">
+                    <datalist id="book-titles">
+                        {% for book in books %}
+                            <option value="{{ book.name }}">{{ book.name }}</option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="field">
+                    <div class="label">Yozuvchi</div>
+                    <input type="text" placeholder="Alixonto'ra Sog'uniy" name="author_name" value="{{ request.GET.author_name }}">
+                </div>
+                <div class="field">
+                    <div class="label">Janrlar</div>
+                    {% for genre in genres %}
+                        <div class="row">
+                            <input type="checkbox" name="genre" value="{{ genre.pk }}" id="genre-{{ genre.pk }}" {% if genre.pk|stringformat:'i' in filter_genre %} checked {% endif %}>
+                            <label for="genre-{{ genre.pk }}">{{ genre.name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="button w-100">Qidirish</button>
+            </form>
+            
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="result">
+            <div class="title">Natijalar</div>
+            <div class="row">
+                <div class="data-title">Kitoblar soni</div>
+                <div class="data-count">168 ta</div>
+            </div>
+            <div class="row">
+                <div class="data-title">Kitoblar umumiy soni</div>
+                <div class="data-count">168 ta</div>
+            </div>
+            <div class="row">
+                <div class="data-title">Kitoblar narxi</div>
+                <div class="data-count">168 so'm</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modals">
+    <div class="modal-wrapper" data-id="ADD-BOOK">
+        <div class="modal">
+            <div class="close-button">
+                <i class="fa-solid fa-xmark fa-fw"></i>
+            </div>
+            <div class="modal-title">
+                Yangi kitob
+            </div>
+
+            <form enctype="multipart/form-data" method="post">{% csrf_token %}
+                <div class="field">
+                    <div class="label">
+                        Rasmlar
+                    </div>
+                    <div class="image-field">
+                        <div class="image"></div>
+                        <div class="image"></div>
+                        <div class="image"></div>
+                        <div class="image"></div>
+                        <div class="image"></div>
+                        <div class="image"></div>
+                        <input type="file" accept="image/*" multiple id="image-field" name="images">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="label">Kitob nomi</div>
+                    <input type="text" name="name" required placeholder="Ibodati islomiya" value="Tarixi Muhammadiy">
+                </div>
+
+                <div class="field">
+                    <div class="label">Kitob haqida</div>
+                    <textarea name="description" placeholder="Kitob haqida"
+                        rows="4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe recusandae nam enim ipsam nobis, vel molestias est quas id ex?</textarea>
+                </div>
+
+                <div class="field">
+                    <div class="label">Yozuvchi</div>
+                    <input type="text" name="author" required value="Lorem, ipsum dolor">
+                </div>
+
+                <div class="field">
+                    <div class="label">ISBN</div>
+                    <input type="number" name="isbn" maxlength="13" required value="7845845412428">
+                </div>
+
+                <div class="field">
+                    <div class="label">Kitob narxi (so'mda)</div>
+                    <input type="number" name="price" maxlength="13" required value="10000">
+                </div>
+
+                <div class="field tag-field">
+                    <div class="label">Janrlar</div>
+                    <select multiple name="genres">
+                        {% for gn in genres %}
+                        <option value="{{ gn.pk }}" {% if forloop.counter|divisibleby:2 %} selected {% endif %}>{{ gn.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button class="submit button w-100">Qo'shish</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/modal.js' %}"></script>
+
+
+{% endblock %}

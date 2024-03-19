@@ -5,23 +5,123 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 500;
   user-select: none;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
 }
 
 .wrapper {
   display: flex;
   height: 100vh;
+  overflow: hidden;
   width: 100vw;
 }
 .wrapper > div {
-  height: 100vh;
+  height: 100%;
 }
 .wrapper .left {
-  background-color: red;
+  background: linear-gradient(45deg, #fdbc2f, #e89e00);
   width: 20%;
+  z-index: 1;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.wrapper .left .logo {
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.wrapper .left .body {
+  flex-grow: 1;
+  padding: 1rem 0 1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.wrapper .left .body .top,
+.wrapper .left .body .bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.wrapper .left .body .menu {
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  border-radius: 0.25rem 0 0 0.25rem;
+  position: relative;
+}
+.wrapper .left .body .menu i {
+  width: 30px;
+  color: white;
+}
+.wrapper .left .body .menu .menu-text {
+  color: white;
+}
+.wrapper .left .body .menu.active {
+  padding-left: 0.8rem;
+  background-color: white;
+  border-radius: 50px 0 0 50px;
+}
+.wrapper .left .body .menu.active .menu-text {
+  color: #fdbc2f;
+}
+.wrapper .left .body .menu.active i {
+  color: #fdbc2f;
+}
+.wrapper .left .body .menu::after, .wrapper .left .body .menu::before {
+  content: "";
+  transition: 0.3s ease-in-out;
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  background-color: white;
+  bottom: 0;
+  left: 0;
+}
+.wrapper .left .body .menu:not(.active):hover::after, .wrapper .left .body .menu:not(.active):hover::before {
+  width: 100%;
 }
 .wrapper .right {
+  max-height: 100vh;
+  overflow: scroll;
+  padding: 2rem;
   width: 80%;
-  background-color: coral;
+  background-color: #f2f2f2;
+}
+.wrapper .right .page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.button {
+  background-color: #fdbc2f;
+  padding: 0.7rem 1rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  color: white;
+  border: none;
+  transition: 0.3s ease-in-out;
+  font-size: 1rem;
+}
+.button:hover {
+  background-color: #e89e00;
+}
+.button.w-100 {
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

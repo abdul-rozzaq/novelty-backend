@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre, CarouselItem, Book, Shop, District, Region
+from .models import Genre, CarouselItem, Book, Shop, District, Region, BookImage
 
 class BookAdmin(admin.ModelAdmin):
     list_display = [
@@ -9,12 +9,17 @@ class BookAdmin(admin.ModelAdmin):
 
 
 class ShopAdmin(admin.ModelAdmin):
-
     list_display = ['name', 'login', 'image']
+
+
+class BookImageAdmin(admin.ModelAdmin):
+    list_filter = ['book']
+
 
 admin.site.register(Shop, ShopAdmin)
 admin.site.register(Region)
 admin.site.register(District)
+admin.site.register(BookImage, BookImageAdmin)
 
 admin.site.register(Genre)
 admin.site.register(CarouselItem)

@@ -1,18 +1,29 @@
 import os
 import django
-import random
-import time
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from project.models import Book, Genre
 
-start_time = time.time()
 
-
-    
-print("--- %s seconds ---" % round(time.time() - start_time, 2))
+x = [
+    "Horror",
+    "Tarixiy",
+    "Fantastika",
+    "Adabiyot",
+    "Biografiya",
+    "San'at",
+    "Sayohat",
+    "Detektiv",
+    "Qo'llanma",
+    "Din",
+    "Texnologiya",
+    "Komiks",
+    "She'riyat ",
+    "Psixologiya",
+    "Komediya",
+]
 
 # for x in Book.objects.all():
     

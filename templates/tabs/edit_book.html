@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/edit_book.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-title">
+    Tahrirlash
+</div>
+
+<form method="POST">{% csrf_token %}
+    <div class="book-title">{{ book.name }}</div>
+    <div class="field">
+        <div class="label">Kitob nomi</div>
+        <input type="text" name="name" required placeholder="Ibodati islomiya" value="Tarixi Muhammadiy">
+    </div>
+
+    <div class="field">
+        <div class="label">Kitob haqida</div>
+        <textarea name="description" placeholder="Kitob haqida"
+            rows="4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe recusandae nam enim ipsam nobis, vel molestias est quas id ex?</textarea>
+    </div>
+
+    <div class="field">
+        <div class="label">Yozuvchi</div>
+        <input type="text" name="author" required value="Lorem, ipsum dolor">
+    </div>
+
+    <div class="field">
+        <div class="label">ISBN</div>
+        <input type="number" name="isbn" maxlength="13" required value="7845845412428">
+    </div>
+
+    <div class="field">
+        <div class="label">Kitob narxi (so'mda)</div>
+        <input type="number" name="price" maxlength="13" required value="10000">
+    </div>
+
+    <div class="field tag-field">
+        <div class="label">Janrlar</div>
+        <select multiple name="genres">
+            {% for gn in genres %}
+            <option value="{{ gn.pk }}" {% if gn in book.genres.all %} selected {% endif %}>{{ gn.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+
+<div class="actions">
+    <div class="button save">Saqlash</div>
+    <div class="button">Saqlash va davom etish</div>
+    <div class="space"></div>
+    <div class="button delete">
+        O'chirish
+    </div>
+</div>
+
+{% endblock content %}

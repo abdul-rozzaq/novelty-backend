@@ -1,0 +1,93 @@
+$main-color: #fdbc2f;
+$second-color: #e7b900;
+
+
+form {
+
+    .book-title {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+
+    .field {
+        display: flex;
+        // margin-bottom: 1.3rem;
+        border-bottom: 1px solid #ccc;
+        padding: .5rem 0;
+        align-items: center;
+
+        .label {
+            padding: .6rem 0;
+            width: 25%;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: .6rem;
+            outline: none;
+            font-size: .9rem;
+            width: 25%;
+            max-width: 25%;
+            min-width: 25%;
+        }
+
+        select {
+            padding: .25rem;
+            height: 200px;
+
+            option {
+                padding: 5px;
+
+                &:focus,
+                &:active,
+                &:checked {
+                    background: linear-gradient($main-color, $main-color);
+                    color: white;
+                }
+            }
+        }
+
+
+        textarea {
+            min-height: 100px;
+            max-height: 200px;
+        }
+    }
+}
+
+
+
+
+.actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: .5rem;
+    background-color: #e0e0e0;
+    border-radius: .3rem;
+    padding: .5rem;
+
+    .space {
+        flex-grow: 1;
+    }
+
+    .save {
+        background-color: dodgerblue;
+
+        &:hover {
+            background-color: rgb(3, 110, 216);
+        }
+    }
+
+
+    .delete {
+        background-color: crimson;
+
+
+        &:hover {
+            background-color: rgb(192, 0, 38);
+        }
+    }
+}

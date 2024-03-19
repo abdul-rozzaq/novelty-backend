@@ -17,13 +17,6 @@ class CarouselItem(models.Model):
         return str(self.id)
 
 
-from django.db import models
-import binascii
-import os
-
-import uuid
-
-
 class Region(models.Model):
     name = models.CharField(max_length=256)
 
@@ -60,17 +53,21 @@ class Shop(models.Model):
             return None
 
 
+
 class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='book-images/')
     name = models.CharField(max_length=256)
     description = models.TextField(blank=True)
     price = models.IntegerField()
-    
     author = models.CharField(max_length=256)
-    
     genres = models.ManyToManyField(Genre)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
+
+class BookImage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to='book-images/')
+

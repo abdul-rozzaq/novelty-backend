@@ -1,0 +1,66 @@
+form .book-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+form .field {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem 0;
+  align-items: center;
+}
+form .field .label {
+  padding: 0.6rem 0;
+  width: 25%;
+}
+form .field input,
+form .field select,
+form .field textarea {
+  padding: 0.6rem;
+  outline: none;
+  font-size: 0.9rem;
+  width: 25%;
+  max-width: 25%;
+  min-width: 25%;
+}
+form .field select {
+  padding: 0.25rem;
+  height: 200px;
+}
+form .field select option {
+  padding: 5px;
+}
+form .field select option:focus, form .field select option:active, form .field select option:checked {
+  background: linear-gradient(#fdbc2f, #fdbc2f);
+  color: white;
+}
+form .field textarea {
+  min-height: 100px;
+  max-height: 200px;
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  background-color: #e0e0e0;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+}
+.actions .space {
+  flex-grow: 1;
+}
+.actions .save {
+  background-color: dodgerblue;
+}
+.actions .save:hover {
+  background-color: rgb(3, 110, 216);
+}
+.actions .delete {
+  background-color: crimson;
+}
+.actions .delete:hover {
+  background-color: rgb(192, 0, 38);
+}
+
+/*# sourceMappingURL=edit_book.css.map */

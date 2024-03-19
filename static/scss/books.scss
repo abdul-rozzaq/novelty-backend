@@ -1,0 +1,227 @@
+
+
+$main-color: #fdbc2f;
+
+
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    display: flex;
+    gap: 1rem;
+    flex-grow: 1;
+
+    .table {
+        border: 1px solid #ccc;
+        height: auto;
+        width: 77%;
+        display: flex;
+        flex-direction: column;
+        border-radius: .5rem .5rem 0 0;
+        
+
+        .t-head {
+            display: flex;            
+            padding: .7rem;
+            gap: 1rem;
+            background-color: #ccc;
+        }
+
+
+        .t-body {
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+
+            .t-row {
+                align-items: center;
+                gap: 1rem;
+                display: flex;
+                padding: .5rem;
+                
+                border-bottom: 1px solid #ccc;
+
+                // &:not(:last-child) {
+                // }
+
+                &:nth-child(even) {
+                    background-color: #e9e9e9;
+                }
+
+
+                .actions {
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+                    padding-inline: .5rem;
+
+                    .action-btn {
+                        cursor: pointer;
+                        padding: .5rem .7rem;
+                        background-color: $main-color;
+                        color: white;
+                        border-radius: 4px;
+
+                        &.delete {
+                            background-color: crimson;
+                        }
+                    }
+                }
+
+
+                &:hover {
+                    background-color: #f9f9f9;
+                }
+
+            }
+        }
+
+        .id {
+            min-width: 4%;
+            text-align: right;
+        }
+        .count {
+            min-width: 4%;
+            text-align: right;
+            
+        }
+
+
+
+        .name {
+            min-width: 25%;
+            max-width: 25%;
+            color: black;
+            font-weight: bold;
+        }
+
+        .price {
+            min-width: 10%;
+        }
+
+
+        .author {
+            text-align: left;
+            min-width: 15%;
+            max-width: 15%;
+        }
+
+        .genres {
+            flex-grow: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+
+            .genre {
+                border: 1px solid #ccc;
+                background-color: white;
+                border-radius: .25rem;
+                // color: red;
+                padding: .1rem .25rem;
+            }
+        }
+    }
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        width: 23%;
+        height: fit-content;
+        
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .search {
+            padding: .5rem;
+
+            .search-form {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+
+                
+                .field {
+                    display: flex;
+                    flex-direction: column;
+
+                    .label {
+                        margin-bottom: .5rem;
+                        font-size: 18px;
+                    }
+
+                    input[type="text"] {
+                        border-radius: .25rem;
+                        padding: .5rem;
+                        flex-grow: 1;
+                        outline: none;
+                        border: 1px solid #ccc;
+                        font-size: 14px;
+                    }
+
+                    .clear {
+                        border-radius: .25rem;
+                        height: 35px;
+                        width: 35px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+    
+                        &:hover {
+                            background-color: #e5e5e5;
+                        }
+                    }
+
+                    .row {
+                        display: flex;
+                        margin-bottom: 4px;
+                        gap: .5rem;
+
+
+                        label {
+                            flex-grow: 1;
+                        }
+                    }
+                }
+
+                .button {
+                    text-align: center;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .hr {
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        .result {
+            display: flex;
+            flex-direction: column;
+            padding: .5rem;
+
+            .row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 4px;
+                font-size: 14px;
+
+                .data-count {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

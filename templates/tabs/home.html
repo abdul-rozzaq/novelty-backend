@@ -1,0 +1,75 @@
+{% extends 'base.html' %}{% load static %}
+
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="navbar">
+        <div class="page-title">Home Page</div>
+    </div>
+
+    <div class="row">
+        <div class="box">
+            <i class="fa-solid fa-bookmark"></i>
+            <div class="label">
+                Kitoblar turi
+            </div>
+
+            <div class="amount">
+                15 ta
+            </div>
+        </div>
+        <div class="box">
+            <i class="fa-solid fa-book-open"></i>
+            <div class="label">
+                Kitoblar soni
+            </div>
+
+            <div class="amount">
+                168 ta
+            </div>
+        </div>
+        <div class="box">
+            <i class="fa-solid fa-folder"></i>
+
+            <div class="label">
+                To'plamlar turi
+            </div>
+
+            <div class="amount">
+                168 ta
+            </div>
+        </div>
+        <div class="box">
+            <i class="fa-solid fa-calendar-days"></i>
+            <div class="label">
+                Buyurtmalar soni
+            </div>
+
+            <div class="amount">
+                168 ta
+            </div>
+        </div>
+        <div class="box">
+            <i class="fa-solid fa-star"></i>
+            <div class="label">
+                Sharxlar
+            </div>
+
+            <div class="amount">
+                4.5 &#9733;
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

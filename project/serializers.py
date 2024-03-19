@@ -19,7 +19,9 @@ class BookSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
 
         return [
-            request.build_absolute_uri(reverse('book_image_resize', kwargs={'book_id': book.id, 'size': x})) for x in [1, 0.7, 0.5, 0.3]
+            [
+                request.build_absolute_uri(reverse('book_image_resize', kwargs={'image_id': img.id, 'size': x})) for x in [1, 0.7, 0.5, 0.3]
+            ] for img in book.images.all()
         ]
 
     def get_genres(self, book):
@@ -28,7 +30,7 @@ class BookSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
 
-        data['image'] = self.get_image(instance)
+        data['images'] = self.get_image(instance)
         data['genres'] = self.get_genres(instance)
 
         return data
