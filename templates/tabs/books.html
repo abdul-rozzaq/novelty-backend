@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load static %}
+{% extends 'base.html' %}{% load static %}{% load project_tags %}
 
 {% block title %}
 Kitoblar - Novelty
@@ -39,7 +39,7 @@ Kitoblar - Novelty
                 <div class="t-data id">{{ forloop.counter }}</div>
                 <a  href="{% url 'edit_book_page' book.pk %}" class="t-data name">{{ book.name }}</a>
                 <div class="t-data price">{{ book.price }} so'm</div>
-                <div class="t-data count">{{ forloop.counter }} ta</div>
+                <div class="t-data count">{{ book.count }} ta</div>
                 <div class="t-data author">{{ book.author }}</div>
                 <div class="t-data genres">
                     {% for gnr in book.genres.all %}
@@ -64,8 +64,8 @@ Kitoblar - Novelty
             <form class="search-form">
                 <div class="field">
                     <div class="label">Kitob nomi</div>
-                    <input type="text" placeholder="Tarixi Muhammadiy" name="book_title" list="book-titles" value="{{ request.GET.book_title }}">
-                    <datalist id="book-titles">
+                    <input type="text" placeholder="Tarixi Muhammadiy" name="search_book_name" list="book-names" value="{{ request.GET.book_title }}">
+                    <datalist id="book-names">
                         {% for book in books %}
                             <option value="{{ book.name }}">{{ book.name }}</option>
                         {% endfor %}
@@ -73,7 +73,7 @@ Kitoblar - Novelty
                 </div>
                 <div class="field">
                     <div class="label">Yozuvchi</div>
-                    <input type="text" placeholder="Alixonto'ra Sog'uniy" name="author_name" value="{{ request.GET.author_name }}">
+                    <input type="text" placeholder="Alixonto'ra Sog'uniy" name="search_author_name" value="{{ request.GET.author_name }}">
                 </div>
                 <div class="field">
                     <div class="label">Janrlar</div>
@@ -95,7 +95,7 @@ Kitoblar - Novelty
             <div class="title">Natijalar</div>
             <div class="row">
                 <div class="data-title">Kitoblar soni</div>
-                <div class="data-count">168 ta</div>
+                <div class="data-count">{{ books.count }} ta</div>
             </div>
             <div class="row">
                 <div class="data-title">Kitoblar umumiy soni</div>
@@ -103,7 +103,7 @@ Kitoblar - Novelty
             </div>
             <div class="row">
                 <div class="data-title">Kitoblar narxi</div>
-                <div class="data-count">168 so'm</div>
+                <div class="data-count">{% calculate_total_price books %} so'm</div>
             </div>
         </div>
     </div>
@@ -153,6 +153,11 @@ Kitoblar - Novelty
                 <div class="field">
                     <div class="label">ISBN</div>
                     <input type="number" name="isbn" maxlength="13" required value="7845845412428">
+                </div>
+
+                <div class="field">
+                    <div class="label">Kitoblar soni</div>
+                    <input type="number" name="count" maxlength="13" required value="1">
                 </div>
 
                 <div class="field">

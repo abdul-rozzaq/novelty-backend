@@ -14,7 +14,7 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['shop', 'name', 'description', 'price', 'author', 'genres']
+        fields = ['shop', 'name', 'description', 'price', 'author', 'genres', 'count']
 
     def save(self, commit=True):
         book = super().save(commit)

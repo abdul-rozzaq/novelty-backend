@@ -13,7 +13,7 @@ class ShopAdmin(admin.ModelAdmin):
 
 
 class BookImageAdmin(admin.ModelAdmin):
-    list_filter = ['book']
+    list_filter = ['book', 'book__name']
 
 
 admin.site.register(Shop, ShopAdmin)

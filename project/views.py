@@ -20,7 +20,6 @@ def home_page(request):
 def books_page(request):
     context = {
         'genres': Genre.objects.all(),
-        'books': Book.objects.filter(shop=request.shop),
         'filter_genre': request.GET.getlist('genre')
     }
     
@@ -38,10 +37,33 @@ def books_page(request):
             form.save()
             return redirect('books_page')
         else:
-            context['errors'] = [{'field': key, 'value': value.as_text()[1:].strip()} for key, value in form.errors.items()]
-                        
-    return render(request, 'tabs/books.html', context)
+            print([
+                {'field': key, 'value': value.as_text()[1:].strip()}
+                for key, value in form.errors.items()
+            ])
+            context['errors'] = [
+                {'field': key, 'value': value.as_text()[1:].strip()}
+                for key, value in form.errors.items()
+            ]
+        
+    # Filter books
+    search_fields = {}
+    book_name_search = request.GET.get('search_book_name')
+    author_name_search = request.GET.get('search_author_name')
+    genred_search = request.GET.getlist('genre')
+    
+    if book_name_search:
+        search_fields['name__icontains'] = book_name_search
+    
+    if author_name_search:
+        search_fields['author__icontains'] = author_name_search
+    
+    if genred_search:
+        search_fields['genres__id__in'] = genred_search
+    
+    context['books'] = Book.objects.filter(**search_fields)
 
+    return render(request, 'tabs/books.html', context)
 
 @login_required
 def orders_page(request):
@@ -65,10 +87,10 @@ def chat_page(request):
 
 def edit_book(request, pk):
     
-    context = {
-        'book': Book.objects.get(pk=pk),
-        'genres': Genre.objects.all(),
-    }
+    # context = {
+    #     'book': Book.objects.get(pk=pk),
+    #     'genres': Genre.objects.all(),
+    # }
     
     return render(request, 'tabs/edit_book.html', context)
 

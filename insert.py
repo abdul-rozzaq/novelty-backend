@@ -1,29 +1,42 @@
-import os
-import django
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-django.setup()
-
-from project.models import Book, Genre
 
 
-x = [
-    "Horror",
-    "Tarixiy",
-    "Fantastika",
-    "Adabiyot",
-    "Biografiya",
-    "San'at",
-    "Sayohat",
-    "Detektiv",
-    "Qo'llanma",
-    "Din",
-    "Texnologiya",
-    "Komiks",
-    "She'riyat ",
-    "Psixologiya",
-    "Komediya",
-]
+# for x in range(1_000_000):
+#     print(x)
+
+
+
+print(format_number('19812488797'))
+
+
+
+
+
+# import os
+# import django
+
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+# django.setup()
+
+# from project.models import Book, Genre
+
+
+# x = [
+#     "Horror",
+#     "Tarixiy",
+#     "Fantastika",
+#     "Adabiyot",
+#     "Biografiya",
+#     "San'at",
+#     "Sayohat",
+#     "Detektiv",
+#     "Qo'llanma",
+#     "Din",
+#     "Texnologiya",
+#     "Komiks",
+#     "She'riyat ",
+#     "Psixologiya",
+#     "Komediya",
+# ]
 
 # for x in Book.objects.all():
     
