@@ -1,8 +1,9 @@
-form .book-title {
+.book-title {
   font-weight: bold;
   font-size: 1.1rem;
   margin-bottom: 1rem;
 }
+
 form .field {
   display: flex;
   border-bottom: 1px solid #ccc;
@@ -37,6 +38,11 @@ form .field select option:focus, form .field select option:active, form .field s
 form .field textarea {
   min-height: 100px;
   max-height: 200px;
+}
+
+.row {
+  display: flex;
+  gap: 4px;
 }
 
 .actions {

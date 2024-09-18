@@ -1,4 +1,4 @@
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, get_authorization_header
 from rest_framework import exceptions
 
 from .models import Token
@@ -18,3 +18,9 @@ class TokenAuthentication(TokenAuthentication):
 
         return (token.user, token)
 
+    def authenticate(self, request):
+        auth = get_authorization_header(request).split()
+
+        print(auth)
+        
+        return super().authenticate(request)

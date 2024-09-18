@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/edit_book.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="page-title">
+        O'chirish
+    </div>
+
+    <div class="row">
+        Haqiqattan ham <span class="book-title" style="font-weight: 900;">{{ book.name }}</span> kitobini o'chirmoqchimisiz ?
+    </div>
+
+
+    <div class="actions">
+        <button class="button save">Ortga</button>
+        <div class="space"></div>
+        <div class="button delete">O'chirish</div>
+        <!-- <div class="button">Saqlash va davom etish</div> -->
+    </div>
+
+
+
+
+{% endblock content %}

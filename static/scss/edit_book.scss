@@ -1,15 +1,13 @@
 $main-color: #fdbc2f;
 $second-color: #e7b900;
 
+.book-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
 
 form {
-
-    .book-title {
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-
 
     .field {
         display: flex;
@@ -58,7 +56,10 @@ form {
     }
 }
 
-
+.row {
+    display: flex;
+    gap: 4px;
+}
 
 
 .actions {
@@ -84,7 +85,6 @@ form {
 
     .delete {
         background-color: crimson;
-
 
         &:hover {
             background-color: rgb(192, 0, 38);

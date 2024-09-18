@@ -4,7 +4,7 @@
 
 {% block head %}
 
-    <link rel="stylesheet" href="{% static 'css/edit_book.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit_book.css' %}">
 
 {% endblock %}
 
@@ -19,28 +19,32 @@
     <div class="book-title">{{ book.name }}</div>
     <div class="field">
         <div class="label">Kitob nomi</div>
-        <input type="text" name="name" required placeholder="Ibodati islomiya" value="Tarixi Muhammadiy">
+        <input type="text" name="name" required placeholder="Ibodati islomiya" value="{{ book.name }}">
     </div>
 
     <div class="field">
         <div class="label">Kitob haqida</div>
-        <textarea name="description" placeholder="Kitob haqida"
-            rows="4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe recusandae nam enim ipsam nobis, vel molestias est quas id ex?</textarea>
+        <textarea name="description" placeholder="Kitob haqida" rows="4">{{ book.description }}</textarea>
     </div>
 
     <div class="field">
         <div class="label">Yozuvchi</div>
-        <input type="text" name="author" required value="Lorem, ipsum dolor">
+        <input type="text" name="author" required value="{{ book.author }}">
+    </div>
+
+    <div class="field">
+        <div class="label">Soni</div>
+        <input type="number" name="count" required value="{{ book.count }}">
     </div>
 
     <div class="field">
         <div class="label">ISBN</div>
-        <input type="number" name="isbn" maxlength="13" required value="7845845412428">
+        <input type="number" name="isbn" required value="{{ book.isbn }}">
     </div>
 
     <div class="field">
         <div class="label">Kitob narxi (so'mda)</div>
-        <input type="number" name="price" maxlength="13" required value="10000">
+        <input type="number" name="price" maxlength="13" required value="{{ book.price }}">
     </div>
 
     <div class="field tag-field">
@@ -51,16 +55,16 @@
             {% endfor %}
         </select>
     </div>
+
+
+    <div class="actions">
+        <button class="button save">Saqlash</button>
+        <div class="button">Saqlash va davom etish</div>
+        <div class="space"></div>
+        <a href="{% url 'delete_book_page' book.id %}" class="button delete">O'chirish</a>
+    </div>
 </form>
 
 
-<div class="actions">
-    <div class="button save">Saqlash</div>
-    <div class="button">Saqlash va davom etish</div>
-    <div class="space"></div>
-    <div class="button delete">
-        O'chirish
-    </div>
-</div>
 
 {% endblock content %}

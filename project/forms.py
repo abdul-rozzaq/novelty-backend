@@ -9,8 +9,13 @@ class BookForm(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         
-        files = args[1]
-        self.images = files.getlist('images')[:6]
+        print(args)
+        print(len(args))
+        
+        
+        # if args:
+        #     files = args[1]
+        #     self.images = files.getlist('images')[:6]
 
     class Meta:
         model = Book
@@ -25,3 +30,9 @@ class BookForm(forms.ModelForm):
                 image=img
             )
         return book 
+    
+    
+class BookUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['name', 'description', 'price', 'author', 'genres', 'count']

@@ -1,6 +1,4 @@
 from django.urls import path
-
-
 from .views import *
 
 urlpatterns = [
@@ -16,6 +14,9 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     
     path('edit-book/<uuid:pk>/', edit_book, name='edit_book_page'),
+    
+    path('delete-book/<uuid:pk>/', delete_book, name='delete_book_page'),
+    path('confirm-delete-book/<uuid:pk>/', confirm_delete_book, name='confirm_delete_book'),
 
     path('get-book-image/<uuid:image_id>/<str:size>/', get_image, name='book_image_resize'),
 ]
