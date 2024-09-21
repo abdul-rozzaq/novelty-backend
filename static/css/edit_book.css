@@ -39,6 +39,29 @@ form .field textarea {
   min-height: 100px;
   max-height: 200px;
 }
+form .image-field {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(3, auto);
+  gap: 1rem;
+  position: relative;
+}
+form .image-field .image {
+  border-radius: 4px;
+  position: relative;
+  width: 125px;
+  height: 140px;
+  border: 1px dashed black;
+  transition: 0.3s ease-in;
+}
+form .image-field .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+form .image-field input[type=file] {
+  display: none;
+}
 
 .row {
   display: flex;

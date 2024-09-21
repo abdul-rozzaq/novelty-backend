@@ -19,15 +19,10 @@
         Haqiqattan ham <span class="book-title" style="font-weight: 900;">{{ book.name }}</span> kitobini o'chirmoqchimisiz ?
     </div>
 
-
     <div class="actions">
-        <button class="button save">Ortga</button>
+        <a href="{% url 'books_page' %}" class="button save">Ortga</a>
         <div class="space"></div>
-        <div class="button delete">O'chirish</div>
-        <!-- <div class="button">Saqlash va davom etish</div> -->
+        <a href="{% url 'confirm_delete_book' book.id %}" class="button delete">O'chirish</a>
     </div>
-
-
-
 
 {% endblock content %}

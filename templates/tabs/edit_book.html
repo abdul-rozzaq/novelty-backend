@@ -15,8 +15,24 @@
     Tahrirlash
 </div>
 
-<form method="POST">{% csrf_token %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
     <div class="book-title">{{ book.name }}</div>
+
+    <div class="field">
+        <div class="label">
+            Rasmlar
+        </div>
+        <div class="image-field">
+            {% for img in book.images.all %}
+            <div class="image">
+                <img src="{{ img.image.url }}" alt="asdad" />
+            </div>
+
+            {% endfor %}
+
+            <input type="file" accept="image/*" multiple id="image-field" name="images">
+        </div>
+    </div>
     <div class="field">
         <div class="label">Kitob nomi</div>
         <input type="text" name="name" required placeholder="Ibodati islomiya" value="{{ book.name }}">
@@ -58,13 +74,15 @@
 
 
     <div class="actions">
-        <button class="button save">Saqlash</button>
-        <div class="button">Saqlash va davom etish</div>
+        <input value="Saqlash" class="button save" type="submit" name="save">
+        <input value="Saqlash va davom etish" class="button" type="submit" name="continue">
         <div class="space"></div>
         <a href="{% url 'delete_book_page' book.id %}" class="button delete">O'chirish</a>
     </div>
 </form>
 
+
+<script src="{% static 'js/image-field.js' %}"></script>
 
 
 {% endblock content %}

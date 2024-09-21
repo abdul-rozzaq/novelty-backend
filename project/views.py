@@ -27,29 +27,21 @@ def books_page(request):
     }
 
     if request.method == "POST":
-
         data = {
+            **request.POST.dict(),
             "shop": request.shop,
-            **{key: value for key, value in request.POST.items() if key != "genres"},
             "genres": request.POST.getlist("genres"),
         }
 
-        form = BookForm(data, request.FILES)
+        form = BookForm(data, files=request.FILES)
 
         if form.is_valid():
             form.save()
             return redirect("books_page")
-        else:
-            print(
-                [
-                    {"field": key, "value": value.as_text()[1:].strip()}
-                    for key, value in form.errors.items()
-                ]
-            )
-            context["errors"] = [
-                {"field": key, "value": value.as_text()[1:].strip()}
-                for key, value in form.errors.items()
-            ]
+
+        context["errors"] = [
+            {"field": key, "value": value[0]} for key, value in form.errors.items()
+        ]
 
     # Filter books
     search_fields = {}
@@ -66,7 +58,7 @@ def books_page(request):
     if genred_search:
         search_fields["genres__id__in"] = genred_search
 
-    context["books"] = Book.objects.filter(**search_fields)
+    context["books"] = Book.objects.filter(**search_fields, shop=request.shop)
 
     return render(request, "tabs/books.html", context)
 
@@ -94,13 +86,21 @@ def chat_page(request):
 def edit_book(request, pk):
     book = Book.objects.get(pk=pk)
 
+    print(book.images.all())
+    
     if request.method == "POST":
-        form = BookUpdateForm(request.POST, instance=book)
+        data = request.POST.copy()
+        files = request.FILES
+        
+        save = bool(data.pop("save", None))
+
+        form = BookUpdateForm(data, files=files, instance=book)
 
         if form.is_valid():
             form.save()
 
-            return redirect("books_page")
+            if save:
+                return redirect("books_page")
 
     context = {
         "book": book,
