@@ -1,18 +1,40 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %}
-    Sharxlar - Novelty
+Sharxlar - Novelty
 {% endblock %}
 
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'css/reviews.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <div class="navbar">
     <div class="page-title">Sharxlar</div>
+</div>
+
+<div class="body">
+    {% for review in reviews %}
+    <div class="review">
+        <div class="review__header">
+            <div class="profile_pic">{{ review.user.first_name|make_list|first }}</div>
+            <div class="col">
+                <div class="full_name">{{ review.user.full_name }}</div>
+                <div class="created_at">{{ review.created_at }}</div>
+            </div>
+            <div class="rating">
+                {{ review.stars|safe }}
+            </div>
+        </div>
+        <div class="review__body">
+            <div class="book_title">{{ review.book.name }}</div>
+            <div class="review_body">{{ review.review }}</div>
+        </div>
+        <!-- <p>{{review.review}}</p> -->
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

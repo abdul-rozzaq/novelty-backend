@@ -32,7 +32,7 @@ form .field select option {
   padding: 5px;
 }
 form .field select option:focus, form .field select option:active, form .field select option:checked {
-  background: linear-gradient(#fdbc2f, #fdbc2f);
+  background: linear-gradient(#1e90ff, #1e90ff);
   color: white;
 }
 form .field textarea {

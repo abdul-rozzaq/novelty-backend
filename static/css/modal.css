@@ -77,7 +77,7 @@ body.block-scroll {
   padding: 5px;
 }
 .modal-wrapper .modal .field select option:focus, .modal-wrapper .modal .field select option:active, .modal-wrapper .modal .field select option:checked {
-  background: linear-gradient(#fdbc2f, #fdbc2f);
+  background: linear-gradient(#1e90ff, #1e90ff);
   color: white;
 }
 .modal-wrapper .modal .field textarea {

@@ -17,10 +17,3 @@ class TokenAuthentication(TokenAuthentication):
             raise exceptions.AuthenticationFailed('Invalid token.')
 
         return (token.user, token)
-
-    def authenticate(self, request):
-        auth = get_authorization_header(request).split()
-
-        print(auth)
-        
-        return super().authenticate(request)

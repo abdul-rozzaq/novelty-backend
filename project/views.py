@@ -3,20 +3,35 @@ from io import BytesIO
 
 from django.http import FileResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
-
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.db.models import Sum, Count
+
 from project.decorators import login_required
 from project.forms import BookForm, BookUpdateForm
 
-from .models import Book, BookImage, Genre, Shop
+from .models import Book, BookImage, Genre, Shop, BookReview
 
 
 @login_required
 def home_page(request):
-    return render(
-        request,
-        "tabs/home.html",
-    )
+    books_type_count = Book.objects.all().count()
+    books_count = Book.objects.aggregate(total_count=Sum('count'))['total_count']
+    
+    review_stats = BookReview.objects.aggregate(total_sum=Sum('rating'), total_count=Count('rating'))
+
+    if review_stats['total_count'] > 0:
+        average_rating = review_stats['total_sum'] / review_stats['total_count']
+    else:
+        average_rating = 0
+        
+        
+    context = {
+        'books_type_count': books_type_count,
+        'books_count': books_count,
+        'avarage_rating': round(average_rating, 1),
+    }
+        
+    return render(request, "tabs/home.html", context)
 
 
 @login_required
@@ -59,7 +74,8 @@ def books_page(request):
         search_fields["genres__id__in"] = genred_search
 
     context["books"] = Book.objects.filter(**search_fields, shop=request.shop)
-
+    context["books_total_count"] = context["books"].aggregate(total_count=Sum("count"))['total_count']
+    
     return render(request, "tabs/books.html", context)
 
 
@@ -70,7 +86,9 @@ def orders_page(request):
 
 @login_required
 def comments_page(request):
-    return render(request, "tabs/comments.html")
+    reviews = BookReview.objects.all()
+
+    return render(request, "tabs/comments.html", {"reviews": reviews})
 
 
 @login_required
@@ -87,11 +105,11 @@ def edit_book(request, pk):
     book = Book.objects.get(pk=pk)
 
     print(book.images.all())
-    
+
     if request.method == "POST":
         data = request.POST.copy()
         files = request.FILES
-        
+
         save = bool(data.pop("save", None))
 
         form = BookUpdateForm(data, files=files, instance=book)

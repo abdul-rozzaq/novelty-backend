@@ -11,7 +11,7 @@ class Genre(models.Model):
 
 class CarouselItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    image = models.ImageField(upload_to='carousel-images/')
+    image = models.ImageField(upload_to="carousel-images/")
 
     def __str__(self) -> str:
         return str(self.id)
@@ -26,7 +26,8 @@ class Region(models.Model):
 
 class District(models.Model):
     region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, related_name='districts')
+        Region, on_delete=models.CASCADE, related_name="districts"
+    )
     name = models.CharField(max_length=256)
 
     def __str__(self) -> str:
@@ -35,8 +36,9 @@ class District(models.Model):
 
 class Shop(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    image = models.ImageField(upload_to='shops-image/',
-                              default='images/default-shop-image.jpg')
+    image = models.ImageField(
+        upload_to="shops-image/", default="images/default-shop-image.jpg"
+    )
     name = models.CharField(max_length=256)
     login = models.CharField(max_length=256, unique=True)
     password = models.CharField(max_length=256)
@@ -53,7 +55,6 @@ class Shop(models.Model):
             return None
 
 
-
 class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
@@ -68,8 +69,27 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
+
 class BookImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to='book-images/')
+    image = models.ImageField(upload_to="book-images/")
 
+
+class BookReview(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="reviews")
+    user = models.ForeignKey(
+        "accounts.User", on_delete=models.CASCADE, related_name="reviews"
+    )
+    rating = models.PositiveIntegerField()
+    review = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.book.name} - {self.rating}/5 by {self.user.first_name}"
+
+    
+    def stars(self):
+        filled = """<img src="/static/svgs/star-filled.svg" alt="" width="20" height="20">""" * self.rating
+        empty = """<img src="/static/svgs/star.svg" alt="" width="20" height="20">""" * (5 - self.rating)
+        return filled + empty

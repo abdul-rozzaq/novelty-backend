@@ -25,6 +25,8 @@ class User(models.Model):
         except User.DoesNotExist:
             return None
 
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name
 
 class Token(models.Model):
     key = models.CharField(_("Key"), max_length=40, primary_key=True)

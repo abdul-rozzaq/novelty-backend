@@ -23,7 +23,7 @@
   height: 100%;
 }
 .wrapper .left {
-  background: linear-gradient(45deg, #fdbc2f, #e89e00);
+  background: linear-gradient(45deg, #1e90ff, #1c86ee);
   width: 20%;
   z-index: 1;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
@@ -76,10 +76,10 @@
   border-radius: 50px 0 0 50px;
 }
 .wrapper .left .body .menu.active .menu-text {
-  color: #fdbc2f;
+  color: #1e90ff;
 }
 .wrapper .left .body .menu.active i {
-  color: #fdbc2f;
+  color: #1e90ff;
 }
 .wrapper .left .body .menu::after, .wrapper .left .body .menu::before {
   content: "";
@@ -108,7 +108,7 @@
 }
 
 .button {
-  background-color: #fdbc2f;
+  background-color: #1e90ff;
   padding: 0.7rem 1rem;
   border-radius: 0.3rem;
   cursor: pointer;
@@ -118,7 +118,7 @@
   font-size: 1rem;
 }
 .button:hover {
-  background-color: #e89e00;
+  background-color: #1c86ee;
 }
 .button.w-100 {
   width: 100%;
