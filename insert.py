@@ -5,7 +5,7 @@
 
 
 
-print(format_number('19812488797'))
+# print(format_number('19812488797'))
 
 
 
@@ -37,6 +37,11 @@ print(format_number('19812488797'))
 #     "Psixologiya",
 #     "Komediya",
 # ]
+
+
+
+# for i in x:
+#     Genre.objects.create(name=i)
 
 # for x in Book.objects.all():
     
@@ -101,7 +106,7 @@ print(format_number('19812488797'))
 # django.setup()
 
 
-# from shop_api.models import *
+# from project.models import Region, District
 
 
 # data = [
